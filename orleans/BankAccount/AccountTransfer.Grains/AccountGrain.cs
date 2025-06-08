@@ -5,7 +5,7 @@ using Orleans.Transactions.Abstractions;
 namespace AccountTransfer.Grains;
 
 [GenerateSerializer]
-public class class Balance
+public record Balance
 {
     public int Value { get; set; } = 1_000;
 }
@@ -34,7 +34,7 @@ public sealed class AccountGrain : Grain, IAccountGrain
                     $" This account has {balance.Value} credits.");
             }
 
-            balance = balance.Value -= amount;
+            balance.Value -= amount;
         });
 
     public Task<int> GetBalance() =>
